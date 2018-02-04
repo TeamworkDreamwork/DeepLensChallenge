@@ -1,7 +1,4 @@
-# Teamwork Dreamwork DeepLens Challenge
-### Challenge
-https://awsdeeplens.devpost.com
-
+# Model Training
 ### MXNET Version
 `pip install mxnet-cu80==0.12.0`
 
