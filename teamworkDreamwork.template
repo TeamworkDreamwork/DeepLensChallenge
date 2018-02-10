@@ -1,0 +1,105 @@
+{
+    "Description": "TeamworkDreamwork",
+    "Parameters": {
+    },
+    "Resources": {
+        "TeamworkDreamworkBucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+                "BucketName": {"Fn::Join": ["",["teamwork-dreamwork-",{"Ref":"AWS::AccountId"}]]}
+            }
+        },
+        "TeamworkDreamworkDeliveryStream": {
+            "Type": "AWS::KinesisFirehose::DeliveryStream",
+            "Properties": {
+                "DeliveryStreamName": "TeamworkDreamworkDeliveryStream",
+                "S3DestinationConfiguration": {
+                    "BucketARN": {"Fn::GetAtt" : [ "TeamworkDreamworkBucket" , "Arn" ]},
+                    "BufferingHints": { "IntervalInSeconds": 60, "SizeInMBs": 5 },
+                    "CompressionFormat": "UNCOMPRESSED",
+                    "Prefix": "DATA/",
+                    "RoleARN": { "Fn::GetAtt": [ "TeamworkDreamworkDeliveryStreamRole", "Arn" ] }                        
+                }
+            }
+        },
+        "TeamworkDreamworkDeliveryStreamRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {"Service": "firehose.amazonaws.com"},
+                            "Action": "sts:AssumeRole"
+                        }
+                    ]
+                },
+                "Policies": [
+                    {
+                        "PolicyName": "TeamworkDreamworkDeliveryStreamPolicy",
+                        "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": ["s3:AbortMultipartUpload","s3:GetBucketLocation","s3:GetObject","s3:ListBucket","s3:ListBucketMultipartUploads","s3:PutObject"],
+                                    "Resource": [
+                                        {"Fn::Join": ["",["arn:aws:s3:::",{"Ref": "TeamworkDreamworkBucket"}]]},
+                                        {"Fn::Join": [ "",["arn:aws:s3:::",{"Ref": "TeamworkDreamworkBucket"},"/*"]]}
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "TeamworkDreamworkIoTRule": {
+            "Type": "AWS::IoT::TopicRule",
+            "Properties": {
+                "RuleName": "TeamworkDreamworkIoTRule",
+                "TopicRulePayload": {
+                    "Actions": [
+                        "Firehose": {
+                            "DeliveryStreamName": { "Fn::GetAtt": [ "TeamworkDreamworkDeliveryStream", "Arn" ] },
+                            "RoleArn": { "Fn::GetAtt": [ "TeamworkDreamworkIoTRole", "Arn" ] }
+                        }
+                    ],
+                    "AwsIotSqlVersion": "2016-03-23",
+                    "Description": "TeamworkDreamworkIoTRule",
+                    "RuleDisabled": false,
+                    "Sql": "SELECT * FROM '$aws/things/deeplens_60182f3e-046d-436b-b68c-7b3d0749686b/infer'"
+                }
+            }
+        },
+        "TeamworkDreamworkIoTRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {"Service": "iot.amazonaws.com"},
+                            "Action": "sts:AssumeRole"
+                        }
+                    ]
+                },
+                "Policies": [
+                    {
+                        "PolicyName": "TeamworkDreamworkIoTPolicy",
+                        "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": {
+                                "Effect": "Allow",
+                                "Action": "firehose:PutRecord",
+                                "Resource": { "Fn::GetAtt": [ "TeamworkDreamworkDeliveryStream", "Arn" ] }
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
