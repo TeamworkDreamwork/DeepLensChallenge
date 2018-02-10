@@ -17,4 +17,20 @@ The first step to accomplish this goal is to train a model using a SageMaker Not
 architecture diagram
 
 ### Deploying the Solution
-zip files
+The full solution is comprised of two major pieces.  The infrastructure running in AWS, that is deployed via CloudFormation template and the model and Lambda that are deployed on the DeepLens.
+
+#### DeepLens Deployment
+To deploy the model and lambda to the DeepLens, use the following artifacts.  Instructions for DeepLens deployments can be found [here](https://docs.aws.amazon.com/deeplens/latest/dg/deeplens-create-deploy-sample-project.html).
+
+Model Artifacts:
+- [mxnet_deploy_ssd_resnet50_512_FP16_FUSED.bin](model/mxnet_deploy_ssd_resnet50_512_FP16_FUSED.bin)
+- [mxnet_deploy_ssd_resnet50_512_FP16_FUSED.xml](model/mxnet_deploy_ssd_resnet50_512_FP16_FUSED.xml)
+
+Lambda Artifacts:
+- [deeplens-object-detection-d7a11c85-5cca-4a00-965b-2ab7e6e8381d.zip](deeplensLambda/deeplens-object-detection-d7a11c85-5cca-4a00-965b-2ab7e6e8381d.zip)
+
+The Lambda function was created by using the original Object Recognition Lambda from the DeepLens sample projects.  It was modified for our use case.
+
+Note that the Resnet param files were larger than 100MB, so they were upload to GitHub as zip files.  To use in future training, unzip the param files.
+
+#### Infrastructure Deployment
