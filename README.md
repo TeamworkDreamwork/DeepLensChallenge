@@ -33,4 +33,9 @@ The Lambda function was created by using the original Object Recognition Lambda 
 
 Note that the Resnet param files were larger than 100MB, so they were upload to GitHub as zip files.  To use in future training, unzip the param files.
 
-#### Infrastructure Deployment
+### Infrastructure Deployment
+To deploy the AWS infrastructure, perform the following steps:
+- Upload the [convertToCsv.zip](lambda/convertToCsv.zip) Lambda function to S3
+- Set [S3Bucket and S3Key](teamworkDreamwork.template#L89-L90) to the location of where you uploaded the Lambda zip file
+- Set [Sql](teamworkDreamwork.template#L153) to the MQTT topic of your DeepLens camera
+- Execute the [TeamworkDreamwork](teamworkDreamwork.template) CloudFormation template
