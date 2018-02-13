@@ -14,7 +14,7 @@ Brand prevalence at certain locations and times is extremely valueable infromati
 The first step to accomplish this goal is to train a model using a SageMaker Notebook Instance to detect Nike and Adidas logos.  The process for creating a dataset and training a model for this solution is documented in the following [gist](gist.md).
 
 ### Architecture
-architecture diagram
+![Architecture Diagram](architecture_diagram.png)
 
 ### Deploying the Solution
 The full solution is comprised of two major pieces.  The infrastructure running in AWS, that is deployed via CloudFormation template and the model and Lambda that are deployed on the DeepLens.
