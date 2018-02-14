@@ -4,7 +4,7 @@
     },
     "Resources": {
         "TeamworkDreamworkBucket": {
-            "DependsOn": ["TeamworkDreamworkLambdaRole","TeamworkDreamworkDeliveryStreamRole"],
+            "DependsOn": ["TeamworkDreamworkLambdaRole","TeamworkDreamworkDeliveryStreamRole","TeamworkDreamworkLambdaInvokePermission"],
             "Type": "AWS::S3::Bucket",
             "Properties": {
                 "BucketName": {"Fn::Join": ["",["teamwork-dreamwork-",{"Ref":"AWS::AccountId"}]]},
@@ -109,11 +109,12 @@
             }
         },
         "TeamworkDreamworkDeliveryStream": {
+            "DependsOn": ["TeamworkDreamworkBucket"],
             "Type": "AWS::KinesisFirehose::DeliveryStream",
             "Properties": {
                 "DeliveryStreamName": "TeamworkDreamworkDeliveryStream",
                 "S3DestinationConfiguration": {
-                    "BucketARN": {"Fn::GetAtt" : [ "TeamworkDreamworkBucket" , "Arn" ]},
+                    "BucketARN": {"Fn::Join": ["",["arn:aws:s3:::","teamwork-dreamwork-",{"Ref":"AWS::AccountId"}]]},
                     "BufferingHints": { "IntervalInSeconds": 60, "SizeInMBs": 5 },
                     "CompressionFormat": "UNCOMPRESSED",
                     "Prefix": "DATA/",
@@ -143,7 +144,7 @@
                 "TopicRulePayload": {
                     "Actions": [
                         "Firehose": {
-                            "DeliveryStreamName": { "Fn::GetAtt": [ "TeamworkDreamworkDeliveryStream", "Arn" ] },
+                            "DeliveryStreamName": "TeamworkDreamworkDeliveryStream",
                             "RoleArn": { "Fn::GetAtt": [ "TeamworkDreamworkIoTRole", "Arn" ] }
                         }
                     ],
