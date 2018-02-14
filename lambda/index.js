@@ -19,8 +19,7 @@ const copyObject = (params, s3) => {
 const convertKey = (key) => {
     console.log(key);
     var withoutPrefix = key.substring(key.indexOf('/'));
-    var withoutPrefixAndSuffix = withoutPrefix.substring(0, withoutPrefix.lastIndexOf('.'));
-    return "ARCHIVE" + withoutPrefixAndSuffix + ".csv";
+    return "ARCHIVE" + withoutPrefix + ".csv";
 }
 
 exports.handler = (event, context, callback) => {
