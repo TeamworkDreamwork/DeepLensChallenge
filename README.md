@@ -39,3 +39,4 @@ To deploy the AWS infrastructure, perform the following steps:
 - Set [S3Bucket and S3Key](teamworkDreamwork.template#L89-L90) to the location of where you uploaded the Lambda zip file
 - Set [Sql](teamworkDreamwork.template#L153) to the MQTT topic of your DeepLens camera
 - Execute the [TeamworkDreamwork](teamworkDreamwork.template) CloudFormation template
+- To import data into Quicksight, use this [manifest file](quicksight/manifest.json).  NOTE: the bucket provisioned in the CloudFormation template must be specified [here](quicksight/manifest.json#L3).  In addition, the path should point to the time period of Firehose data that is to be imported.

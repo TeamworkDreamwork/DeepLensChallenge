@@ -1,0 +1,8 @@
+{
+	"fileLocations": [{
+		"URIPrefixes": ["https://s3.amazonaws.com/teamwork-dreamwork-AccountId/ARCHIVE/02/14/02"]
+	}],
+	"globalUploadSettings": {
+		"containsHeader": "false"
+	}
+}
