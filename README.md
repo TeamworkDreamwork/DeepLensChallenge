@@ -23,6 +23,7 @@ The full solution is comprised of two major pieces.  The infrastructure running 
 To deploy the model and lambda to the DeepLens, use the following artifacts.  Instructions for DeepLens deployments can be found [here](https://docs.aws.amazon.com/deeplens/latest/dg/deeplens-create-deploy-sample-project.html).
 
 Model Artifacts:
+
 Hearts and Stars
 - [mxnet_deploy_ssd_resnet50_512_FP16_FUSED.bin](model/HeartsAndStars/mxnet_deploy_ssd_resnet50_512_FP16_FUSED.bin)
 - [mxnet_deploy_ssd_resnet50_512_FP16_FUSED.xml](model/HeartsAndStars/mxnet_deploy_ssd_resnet50_512_FP16_FUSED.xml)
