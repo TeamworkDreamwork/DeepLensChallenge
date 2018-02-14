@@ -23,11 +23,16 @@ The full solution is comprised of two major pieces.  The infrastructure running 
 To deploy the model and lambda to the DeepLens, use the following artifacts.  Instructions for DeepLens deployments can be found [here](https://docs.aws.amazon.com/deeplens/latest/dg/deeplens-create-deploy-sample-project.html).
 
 Model Artifacts:
-- [mxnet_deploy_ssd_resnet50_512_FP16_FUSED.bin](model/mxnet_deploy_ssd_resnet50_512_FP16_FUSED.bin)
-- [mxnet_deploy_ssd_resnet50_512_FP16_FUSED.xml](model/mxnet_deploy_ssd_resnet50_512_FP16_FUSED.xml)
+Hearts and Stars
+- [mxnet_deploy_ssd_resnet50_512_FP16_FUSED.bin](model/HeartsAndStars/mxnet_deploy_ssd_resnet50_512_FP16_FUSED.bin)
+- [mxnet_deploy_ssd_resnet50_512_FP16_FUSED.xml](model/HeartsAndStars/mxnet_deploy_ssd_resnet50_512_FP16_FUSED.xml)
+
+Nike and Adidas
+- [mxnet_deploy_ssd_resnet50_512_FP16_FUSED.bin](model/NikeAndAdidas/mxnet_deploy_ssd_resnet50_512_FP16_FUSED.bin)
+- [mxnet_deploy_ssd_resnet50_512_FP16_FUSED.xml](model/NikeAndAdidas/mxnet_deploy_ssd_resnet50_512_FP16_FUSED.xml)
 
 Lambda Artifacts:
-- [deeplens-object-detection-d7a11c85-5cca-4a00-965b-2ab7e6e8381d.zip](deeplensLambda/deeplens-object-detection-d7a11c85-5cca-4a00-965b-2ab7e6e8381d.zip)
+- [deeplens-object-detection.zip](deeplensLambda/deeplens-object-detection-55cbb706-fd05-44af-a713-991f045f4cda.zip)
 
 The Lambda function was created by using the original Object Recognition Lambda from the DeepLens sample projects.  It was modified for our use case.
 
