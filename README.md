@@ -19,6 +19,9 @@ The first step to accomplish this goal is to train a model using a SageMaker Not
 ### Deploying the Solution
 The full solution is comprised of two major pieces.  The infrastructure running in AWS, that is deployed via CloudFormation template and the model and Lambda that are deployed on the DeepLens.
 
+- [Hearts and Stars Demo Video](https://youtu.be/Q8ay_87teVw)
+- [Nike and Adidas Original Demo Video](https://youtu.be/2tk7-7dL8ws)
+
 #### DeepLens Deployment
 To deploy the model and lambda to the DeepLens, use the following artifacts.  Instructions for DeepLens deployments can be found [here](https://docs.aws.amazon.com/deeplens/latest/dg/deeplens-create-deploy-sample-project.html).
 
